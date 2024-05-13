@@ -20,4 +20,16 @@ public class DemoController extends HelloServiceGrpc.HelloServiceImplBase{
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
+    
+    @Override
+        public void stopUDP(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
+        {
+            new Thread(new MyThread()).stop();
+            HelloResponse response = HelloResponse.newBuilder()
+                    .setGreeting("UDP thread stopped")
+                    .build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+    }
 }
